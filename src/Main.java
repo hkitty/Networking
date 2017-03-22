@@ -1,9 +1,11 @@
 
-public class Main {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
+public class Main { 
+	public static void main(String[] args) { 
+		Service s = new Service("Poland"); 
+		String weatherJson = s.getWeather("Warsaw"); 
+		Double rate1 = s.getRateFor("d"); 
+		Double rate2 = s.getNBPRate(); 
+		// ... 
+		// а здесь GUI 
+	} 
 }
