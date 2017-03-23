@@ -3,10 +3,11 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.*;
 
 public class Service {
 	private String currentCountry;
-	private String shortCur;// = "PLN";
+	private String shortCur;
 
 	private Map<String, String> cur = new HashMap<String, String>();
 
@@ -40,7 +41,6 @@ public class Service {
 		setCurrentCountry(country);
 
 		shortCur = cur.get(currentCountry);
-
 	}
 
 	String getWeather(String city) {
@@ -61,21 +61,30 @@ public class Service {
 
 	Double getRateFor(String kod_waluty) {
 		Double answer = 1.0;
+		String temp = "";
+
 		if (shortCur != kod_waluty) {
 			String json = "";
 
 			try {
 
 				json = getJson("http://api.fixer.io/latest?base=" + shortCur + "&symbols=" + kod_waluty);
-				answer = parseJson(json);
+				temp = parseJson(json, kod_waluty);
+
+				try {
+					answer = Double.parseDouble(temp);
+					//System.out.println(answer);
+				} catch (Exception e) {
+					System.out.println("Wrong currency type");
+				}
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		} else {
+			answer = 1.0;
 		}
-		System.out.println(answer);
-
 		return answer;
 	}
 
@@ -85,18 +94,20 @@ public class Service {
 		return answer;
 	}
 
-	private static Double parseJson(String json) {
-		Double answer = 0.0;
+	private String parseJson(String json, String target) {
+		String temp = json;
+		String answer = "";
 
-		String[] ss = json.split(":");
-		String temp = ss[ss.length - 1];
+		Pattern pattern = Pattern.compile("\"(" + target + ")\":+(\\d.*\\d)"); // ""
+		Matcher matcher = pattern.matcher(temp);
 
-		temp = temp.substring(0, temp.length() - 2);
-
-		answer = Double.parseDouble(temp);
+		if (matcher.find()) {
+			if (matcher.group(1) != target) {
+				answer = matcher.group(2);
+			}
+		}
 
 		return answer;
-
 	}
 
 	private static String getJson(String urlString) throws Exception {
