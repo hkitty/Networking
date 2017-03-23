@@ -1,8 +1,23 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 public class Service {
 	private String currentCountry;
@@ -80,11 +95,50 @@ public class Service {
 	}
 
 	Double getNBPRate() {
-		Double answer = 0.0;
-
-		return answer;
+		double rate = 0.0;
+		
+		try {
+			DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+			InputSource is = new InputSource(new StringReader(getJson("http://www.nbp.pl/kursy/xml/a058z170323.xml")));
+			Document xml = documentBuilder.parse(is);
+			
+			String result = findInXML(xml);
+			
+			if(result == "")
+			{
+				is = new InputSource(new StringReader(getJson("http://www.nbp.pl/kursy/xml/b012z170322.xml")));
+				xml = documentBuilder.parse(is);
+				
+				result = findInXML(xml);
+			}
+			
+			result = result.replaceAll(",", ".");
+			rate = Double.parseDouble(result);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rate;
 	}
-
+	
+	String findInXML(Document xml)
+	{
+		try {
+			XPathFactory pathFactory = XPathFactory.newInstance();
+	        XPath xpath = pathFactory.newXPath();
+	        XPathExpression expr = xpath.compile("//tabela_kursow/pozycja[kod_waluty='" + shortCur + "']/kurs_sredni");
+	        
+	        Node node = (Node) expr.evaluate(xml, XPathConstants.NODE);
+	        return node.getTextContent();
+	        
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "";
+	}
+	
 	private static Double parseJson(String json) {
 		Double answer = 0.0;
 
