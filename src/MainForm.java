@@ -30,7 +30,11 @@ public class MainForm {
 	private JFrame frame;
 	private String country;
 	private Service service;
+	
 	private JTextField textField;
+	private JTextField textField1;
+	private JTextField textField2;
+	
 	private WebView browser;
 	
 	JFXPanel wikiPanel;
@@ -44,7 +48,7 @@ public class MainForm {
 	}
 
 
-	public MainForm(String country) {
+	public MainForm(String country, String city, String rateFor) {
 		initialize();
 		
 		this.country = country;
@@ -53,6 +57,10 @@ public class MainForm {
 		Platform.runLater(new Runnable() {
 	        @Override
 	        public void run() {
+	        	textField.setText(service.getWeather(city));
+	        	textField1.setText(service.getRateFor(rateFor).toString());
+	        	textField2.setText(service.getNBPRate().toString());
+	        	
 	    	    browser = new WebView();
 	    	    wikiPanel.setScene(new Scene(browser));
 	    	    browser.getEngine().load("https://en.wikipedia.org/wiki/" + country);
@@ -73,8 +81,8 @@ public class MainForm {
 		frame.getContentPane().add(panel);
 		
 		JPanel weatherPanel = new JPanel();
-		weatherPanel.setBounds(10, 0, 459, 25);
-		weatherPanel.setLayout(new GridLayout(0, 3, 0, 0));
+		weatherPanel.setBounds(10, 0, 659, 25);
+		weatherPanel.setLayout(new GridLayout(0, 4, 0, 0));
 		
 		JLabel lblGetWeatherFor = new JLabel("Get weather for: ");
 		lblGetWeatherFor.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -84,16 +92,13 @@ public class MainForm {
 		weatherPanel.add(textField);
 		textField.setColumns(10);
 		
-		JButton btnGet = new JButton("Get!");
-		weatherPanel.add(btnGet);
-		
 		JPanel ratePanel = new JPanel();
-		ratePanel.setBounds(10, 25, 116, 25);
-		ratePanel.setLayout(new GridLayout(0, 1, 0, 0));
+		ratePanel.setBounds(10, 25, 659, 25);
+		ratePanel.setLayout(new GridLayout(0, 4, 0, 0));
 		
 		JPanel nbpRate = new JPanel();
-		nbpRate.setBounds(10, 49, 128, 25);
-		nbpRate.setLayout(new GridLayout(0, 1, 0, 0));
+		nbpRate.setBounds(10, 50, 659, 25);
+		nbpRate.setLayout(new GridLayout(0, 4, 0, 0));
 		
 		JLabel lblGetNbpRate = new JLabel("Get NBP rate: ");
 		nbpRate.add(lblGetNbpRate);
@@ -106,6 +111,15 @@ public class MainForm {
 		ratePanel.add(lblGetRateFor);
 		lblGetRateFor.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		panel.add(nbpRate);
+		
+		
+		textField1 = new JTextField();
+		ratePanel.add(textField1);
+		textField1.setColumns(10);
+		
+		textField2 = new JTextField();
+		nbpRate.add(textField2);
+		textField2.setColumns(10);
 		
 		wikiPanel = new JFXPanel();
 		wikiPanel.setBounds(0, 80, 540, 240);
