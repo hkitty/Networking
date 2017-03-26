@@ -8,22 +8,30 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CountryAskingDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
+	private JComboBox comboBox;
 
 	/**
 	 * Launch the application.
 	 */
-	public void run() {
+	public String run() {
 		try {
 			setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			setModal(true);
 			setVisible(true);
+			return comboBox.getItemAt(comboBox.getSelectedIndex()).toString();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return comboBox.getItemAt(comboBox.getSelectedIndex()).toString();
 	}
 
 	/**
@@ -41,16 +49,25 @@ public class CountryAskingDialog extends JDialog {
 			contentPanel.add(lblEnterCountry);
 		}
 		{
-			textField = new JTextField();
-			contentPanel.add(textField);
-			textField.setColumns(10);
+			String[] countryStrings = {"Canada","Switzerland","Cyprus","Danish","Estonia",
+			"United Kingdom","Hong Kong","Hungary","Iceland","Japan","South Korea", 
+			"Lithuania","Latvia","Malta","Norway","New Zeland","Poland","Romania","Sweden",
+			"Singapore","Slovenia","Slovakia","Turkey","United States","South Africa"};
+			
+			comboBox = new JComboBox(countryStrings);
+			contentPanel.add(comboBox);
 		}
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				JButton okButton = 	new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						setVisible(false);
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);

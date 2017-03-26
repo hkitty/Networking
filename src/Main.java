@@ -16,7 +16,9 @@ public class Main {
 		//System.out.println("Rate in " + country + " for " + rateFor + " : " + rate1);
 		//System.out.println("Rate in " + country + " for zloty: " + rate2);
 		
-		MainForm window = new MainForm();
-		window.run();
+		CountryAskingDialog dlg = new CountryAskingDialog();
+		String result = dlg.run();
+		
+		MainForm form = new MainForm(result);
 	}
 }
