@@ -23,6 +23,7 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.FlowLayout;
 
 public class MainForm {
 
@@ -57,16 +58,22 @@ public class MainForm {
 	    	    browser.getEngine().load("https://en.wikipedia.org/wiki/" + country);
 	        }
 	   });
+		
+		run();
 	}
 
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 556, 360);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
+		frame.getContentPane().setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 540, 80);
+		frame.getContentPane().add(panel);
 		
 		JPanel weatherPanel = new JPanel();
-		frame.getContentPane().add(weatherPanel);
+		weatherPanel.setBounds(10, 0, 459, 25);
 		weatherPanel.setLayout(new GridLayout(0, 3, 0, 0));
 		
 		JLabel lblGetWeatherFor = new JLabel("Get weather for: ");
@@ -81,22 +88,27 @@ public class MainForm {
 		weatherPanel.add(btnGet);
 		
 		JPanel ratePanel = new JPanel();
-		frame.getContentPane().add(ratePanel);
+		ratePanel.setBounds(10, 25, 116, 25);
 		ratePanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JLabel lblGetRateFor = new JLabel("Get rate for: ");
-		lblGetRateFor.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		ratePanel.add(lblGetRateFor);
-		
 		JPanel nbpRate = new JPanel();
-		frame.getContentPane().add(nbpRate);
+		nbpRate.setBounds(10, 49, 128, 25);
 		nbpRate.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JLabel lblGetNbpRate = new JLabel("Get NBP rate: ");
-		lblGetNbpRate.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		nbpRate.add(lblGetNbpRate);
+		lblGetNbpRate.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		panel.setLayout(null);
+		panel.add(weatherPanel);
+		panel.add(ratePanel);
+		
+		JLabel lblGetRateFor = new JLabel("Get rate for: ");
+		ratePanel.add(lblGetRateFor);
+		lblGetRateFor.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		panel.add(nbpRate);
 		
 		wikiPanel = new JFXPanel();
+		wikiPanel.setBounds(0, 80, 540, 240);
 		frame.getContentPane().add(wikiPanel);
 	}
 
