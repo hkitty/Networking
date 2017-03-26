@@ -1,4 +1,5 @@
- 
+import java.awt.EventQueue;
+
 public class Main { 
 	public static void main(String[] args) {
 		String country = "Canada";
@@ -11,10 +12,11 @@ public class Main {
 		Double rate1 = s.getRateFor(rateFor); 
 		Double rate2 = s.getNBPRate(); 
 		
-		System.out.println("Weather in " + city + ": " + weatherJson);
-		System.out.println("Rate in " + country + " for " + rateFor + " : " + rate1);
-		System.out.println("Rate in " + country + " for zloty: " + rate2);
-		// ... 
-		// а здесь GUI 
-	} 
+		//System.out.println("Weather in " + city + ": " + weatherJson);
+		//System.out.println("Rate in " + country + " for " + rateFor + " : " + rate1);
+		//System.out.println("Rate in " + country + " for zloty: " + rate2);
+		
+		MainForm window = new MainForm();
+		window.run();
+	}
 }
