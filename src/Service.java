@@ -184,5 +184,6 @@ public class Service {
 
 	public void setCurrentCountry(String currentCountry) {
 		this.currentCountry = currentCountry;
+		shortCur = cur.get(currentCountry);
 	}
 }
