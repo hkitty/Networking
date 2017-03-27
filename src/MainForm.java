@@ -1,31 +1,17 @@
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
 import java.awt.Font;
-import javax.swing.JTextPane;
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
-import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import sun.swing.plaf.WindowsKeybindings;
 
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import java.awt.GridLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.FlowLayout;
 import javax.swing.JComboBox;
-import java.awt.Component;
 import javax.swing.SwingConstants;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
@@ -42,8 +28,8 @@ public class MainForm {
 	private JTextField textField1;
 	private JTextField textField2;
 	
-	private JComboBox countryComboBox;
-	private JComboBox currencyComboBox;
+	private JComboBox<Object> countryComboBox;
+	private JComboBox<Object> currencyComboBox;
 	
 	private WebView browser;
 	
@@ -162,12 +148,13 @@ public class MainForm {
 		String currencies[] = {"CAD", "CHF", "CYP", "DKK", "EEK", "GBP", "HKD", "HUF", "ISK", "JPY", "KRW", "LTL", "LVL",
 		"MTL", "NOK", "NZD", "PLN", "ROL", "SEK", "SGD", "SIT", "SKK", "TRL", "USD", "ZAR"};
 		
-		currencyComboBox = new JComboBox(currencies);
+		currencyComboBox = new JComboBox<Object>(currencies);
 		
 		ratePanel.add(currencyComboBox);
 		currencyComboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				changeCurrency();
+				if(e.getStateChange() == 1)
+					changeCurrency();
 			}
 		});
 		
@@ -179,12 +166,13 @@ public class MainForm {
 		nbpRate.add(textField2);
 		textField2.setColumns(10);
 		
-		countryComboBox = new JComboBox(countries);
+		countryComboBox = new JComboBox<Object>(countries);
 		nbpRate.add(countryComboBox);
 		
 		countryComboBox.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent arg0) {
-				changeCountry();
+			public void itemStateChanged(ItemEvent e) {
+				if(e.getStateChange() == 1)
+					changeCountry();
 			}
 		});
 		
@@ -200,6 +188,22 @@ public class MainForm {
 		service.setCurrentCountry(country);
     	textField1.setText(service.getRateFor(rateFor).toString());
     	textField2.setText(service.getNBPRate().toString());
+    	
+		
+		Platform.runLater(new Runnable() {
+	        @Override
+	        public void run() {
+	        	jsonLabel.setText(service.getWeather(city));
+	        	textField1.setText(service.getRateFor(rateFor).toString());
+	        	textField2.setText(service.getNBPRate().toString());
+	        	
+	    	    browser = new WebView();
+	    	    wikiPanel.setScene(new Scene(browser));
+	    	    browser.getEngine().load("https://en.wikipedia.org/wiki/" + country);
+	        }
+	   });
+		
+		run();
 	}
 	
 	private void changeCurrency()

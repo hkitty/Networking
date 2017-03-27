@@ -117,7 +117,9 @@ public class Service {
 			}
 			
 			result = result.replaceAll(",", ".");
-			rate = Double.parseDouble(result);
+			
+			if(!result.isEmpty())
+				rate = Double.parseDouble(result);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -134,8 +136,12 @@ public class Service {
 	        XPathExpression expr = xpath.compile("//tabela_kursow/pozycja[kod_waluty='" + shortCur + "']/kurs_sredni");
 	        
 	        Node node = (Node) expr.evaluate(xml, XPathConstants.NODE);
-	        return node.getTextContent();
-	        
+	       
+	        if(node != null)
+	        {
+	        	return node.getTextContent();
+	        }
+	        else return "";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -172,6 +178,9 @@ public class Service {
 				buffer.append(chars, 0, read);
 
 			return buffer.toString();
+		} catch (Exception e) {
+			//Can't find country
+			return "";
 		} finally {
 			if (reader != null)
 				reader.close();
