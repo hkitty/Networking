@@ -24,29 +24,33 @@ public class Service {
 	private Map<String, String> cur = new HashMap<String, String>();
 
 	Service(String country) {
+		cur.put("Australia", "AUD");
+		cur.put("Bulgaria", "BGN");
+		cur.put("Brazil", "BRL");
 		cur.put("Canada", "CAD");
 		cur.put("Switzerland", "CHF");
-		cur.put("Cyprus", "CYP");
-		cur.put("Danish", "DKK");
-		cur.put("Estonia", "EEK");
+		cur.put("China", "CNY");
+		cur.put("Czech", "CZK");
+		cur.put("Denmark", "DKK");
 		cur.put("United Kingdom", "GBP");
 		cur.put("Hong Kong", "HKD");
+		cur.put("Croatia", "HRK");
 		cur.put("Hungary", "HUF");
-		cur.put("Iceland", "ISK");
+		cur.put("Indonesia", "IDR");
+		cur.put("Israel", "ILS");
+		cur.put("India", "INR");
 		cur.put("Japan", "JPY");
 		cur.put("South Korea", "KRW");
-		cur.put("Lithuania", "LTL");
-		cur.put("Latvia", "LVL");
-		cur.put("Malta", "MTL");
+		cur.put("Mexico", "MXN");
+		cur.put("Malaysia", "MYR");
 		cur.put("Norway", "NOK");
 		cur.put("New Zeland", "NZD");
 		cur.put("Poland", "PLN");
-		cur.put("Romania", "ROL");
+		cur.put("Romania", "RON");
+		cur.put("Russia", "RUB");
 		cur.put("Sweden", "SEK");
-		cur.put("Singapore", "SGD");
-		cur.put("Slovenia", "SIT");
-		cur.put("Slovakia", "SKK");
-		cur.put("Turkey", "TRL");
+		cur.put("Thailand", "THB");
+		cur.put("Turkey", "TRY");
 		cur.put("United States", "USD");
 		cur.put("South Africa", "ZAR");
 
