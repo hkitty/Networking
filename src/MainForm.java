@@ -33,12 +33,12 @@ public class MainForm {
 	
 	private WebView browser;
 	
-	JLabel jsonLabel;
-	
 	String rateFor;
 	String city;
 	
 	JFXPanel wikiPanel;
+	
+	private JTextField weatherField;
 	
 	public void run() {
 		try {
@@ -61,7 +61,7 @@ public class MainForm {
 		Platform.runLater(new Runnable() {
 	        @Override
 	        public void run() {
-	        	jsonLabel.setText(service.getWeather(city));
+	        	weatherField.setText(service.getWeather(city));
 	        	textField1.setText(service.getRateFor(rateFor).toString());
 	        	textField2.setText(service.getNBPRate().toString());
 	        	
@@ -129,9 +129,11 @@ public class MainForm {
 		JPanel jsonPanel = new JPanel();
 		jsonPanel.setBounds(10, 31, 520, 25);
 		panel.add(jsonPanel);
+		jsonPanel.setLayout(new BoxLayout(jsonPanel, BoxLayout.X_AXIS));
 		
-		jsonLabel = new JLabel("New label");
-		jsonPanel.add(jsonLabel);
+		weatherField = new JTextField();
+		jsonPanel.add(weatherField);
+		weatherField.setColumns(10);
 		panel.add(ratePanel);
 		ratePanel.setLayout(new BoxLayout(ratePanel, BoxLayout.X_AXIS));
 		
@@ -193,7 +195,7 @@ public class MainForm {
 		Platform.runLater(new Runnable() {
 	        @Override
 	        public void run() {
-	        	jsonLabel.setText(service.getWeather(city));
+	        	weatherField.setText(service.getWeather(city));
 	        	textField1.setText(service.getRateFor(rateFor).toString());
 	        	textField2.setText(service.getNBPRate().toString());
 	        	
@@ -216,6 +218,6 @@ public class MainForm {
 	
 	private void changeCity()
 	{
-		jsonLabel.setText(service.getWeather(textField.getText()));
+		weatherField.setText(service.getWeather(textField.getText()));
 	}
 }
