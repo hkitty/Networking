@@ -1,7 +1,7 @@
 
 public class Main { 
 	public static void main(String[] args) {
-		String country = "Australia";
+		String country = "New Zealand";
 		String city = "Cidney";
 		String rateFor = "USD";
 		

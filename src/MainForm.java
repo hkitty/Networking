@@ -153,9 +153,9 @@ public class MainForm {
 		ratePanel.add(textField1);
 		textField1.setColumns(10);
 
-		String countries[] = { "Australia", "Brazil", "Bulgaria", "Canada", "Switzerland", "China", "Czech", "Denmark",
+		String countries[] = { "Australia", "Brazil", "Bulgaria", "Canada", "Switzerland", "China", "Czech Republic", "Denmark",
 				"United Kingdom", "Hong Kong", "Croatia", "Hungary", "Indonesia", "Israel", "India", "Japan",
-				"South Korea", "Mexico", "Malaysia", "Norway", "New Zeland", "Poland", "Romania", "Russia", "Sweden",
+				"South Korea", "Mexico", "Malaysia", "Norway", "New Zealand", "Poland", "Romania", "Russia", "Sweden",
 				"Thailand", "Turkey", "United States", "South Africa" };
 
 		String currencies[] = { "AUD", "BGN", "BRL", "CAD", "CHF", "CNY", "CZK", "DKK", "GBP", "HKD", "HRK", "HUF",
