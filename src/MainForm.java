@@ -57,11 +57,11 @@ public class MainForm {
 	public MainForm(String country, String city, String rateFor) {
 		initialize();
 
-		this.country = country;
+		this.country = "Australia";
 		service = new Service(country);
 
 		this.city = city;
-		this.rateFor = rateFor;
+		this.rateFor = "AUD";
 
 		Platform.runLater(new Runnable() {
 			@Override
@@ -74,7 +74,7 @@ public class MainForm {
 
 				browser = new WebView();
 				wikiPanel.setScene(new Scene(browser));
-				browser.getEngine().load("https://en.wikipedia.org/wiki/" + country);
+				browser.getEngine().load("https://en.wikipedia.org/wiki/" + city);
 			}
 		});
 
@@ -208,7 +208,7 @@ public class MainForm {
 
 				browser = new WebView();
 				wikiPanel.setScene(new Scene(browser));
-				browser.getEngine().load("https://en.wikipedia.org/wiki/" + country);
+				browser.getEngine().load("https://en.wikipedia.org/wiki/" + city);
 			}
 		});
 

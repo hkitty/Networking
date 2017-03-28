@@ -1,9 +1,9 @@
 
 public class Main { 
 	public static void main(String[] args) {
-		String country = "Poland";
+		String country = "Australia";
 		String city = "Cidney";
-		String rateFor = "AUD";
+		String rateFor = "USD";
 		
 		Service s = new Service(country); 
 		

@@ -44,8 +44,9 @@ public class Service {
 	Double getRateFor(String kod_waluty) {
 		Double answer = 1.0;
 		String temp = "";
-
-		if (shortCur != kod_waluty) {
+		kod_waluty = kod_waluty.toUpperCase();
+		
+		if (!kod_waluty.equals(shortCur)) {
 			String json = "";
 
 			try {
