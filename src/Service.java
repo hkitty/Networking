@@ -70,7 +70,7 @@ public class Service {
 	}
 
 	Double getNBPRate() {
-		double rate = 0.0;
+		double rate = 1.0;
 		
 		try {
 			DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();

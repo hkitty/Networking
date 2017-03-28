@@ -201,7 +201,8 @@ public class MainForm {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				weatherField.setText(service.getWeather(city));
+				setWeather();
+				//weatherField.setText(service.getWeather(city));
 				textField1.setText(service.getRateFor(rateFor).toString());
 				textField2.setText(service.getNBPRate().toString());
 
