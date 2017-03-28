@@ -1,12 +1,9 @@
-import java.awt.EventQueue;
-import java.util.Currency;
-import java.util.Locale;
 
 public class Main { 
 	public static void main(String[] args) {
-		String country = "Italy";
-		String city = "Rome";
-		String rateFor = "USD";
+		String country = "Australia";
+		String city = "Cidney";
+		String rateFor = "AUD";
 		
 		Service s = new Service(country); 
 		
@@ -18,7 +15,7 @@ public class Main {
 		System.out.println("Rate for " + rateFor + ": " + rate1);
 		System.out.println("NBP rate: " + rate2);
 		
-//		MainForm form = new MainForm(country, city, rateFor);
+		MainForm form = new MainForm(country, city, rateFor);
 		
 	}
 }

@@ -23,8 +23,6 @@ public class Service {
 	private String currentCountry;
 	private String shortCur;
 
-	private Map<String, String> cur = new HashMap<String, String>();
-
 	Service(String country) {
 		setCurrentCountry(country);
 
@@ -168,7 +166,7 @@ public class Service {
 
 	public void setCurrentCountry(String currentCountry) {
 		this.currentCountry = currentCountry;
-		shortCur = cur.get(currentCountry);
+		shortCur = convertCountryNameToIsoCode(currentCountry);
 	}
 	
 	public String convertCountryNameToIsoCode(String countryName)
