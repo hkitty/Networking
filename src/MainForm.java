@@ -201,14 +201,10 @@ public class MainForm {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				setWeather();
+				//setWeather();
 				//weatherField.setText(service.getWeather(city));
 				textField1.setText(service.getRateFor(rateFor).toString());
 				textField2.setText(service.getNBPRate().toString());
-
-				browser = new WebView();
-				wikiPanel.setScene(new Scene(browser));
-				browser.getEngine().load("https://en.wikipedia.org/wiki/" + city);
 			}
 		});
 
@@ -245,5 +241,15 @@ public class MainForm {
 		}
 		
 		weatherField.setText(weather);
+		
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				browser = new WebView();
+				wikiPanel.setScene(new Scene(browser));
+				browser.getEngine().load("https://en.wikipedia.org/wiki/" + city);
+			}
+		});
+
 	}
 }
