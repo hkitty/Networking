@@ -83,7 +83,7 @@ public class MainForm {
 
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 556, 360);
+		frame.setBounds(100, 100, 758, 563);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
@@ -187,7 +187,7 @@ public class MainForm {
 		});
 
 		wikiPanel = new JFXPanel();
-		wikiPanel.setBounds(0, 112, 540, 208);
+		wikiPanel.setBounds(0, 112, 742, 412);
 		frame.getContentPane().add(wikiPanel);
 	}
 
@@ -222,7 +222,8 @@ public class MainForm {
 	}
 
 	private void changeCity() {
-		weatherField.setText(service.getWeather(textField.getText()));
+		city = textField.getText();
+		setWeather();
 	}
 	
 	private void setWeather()
