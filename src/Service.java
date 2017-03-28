@@ -2,7 +2,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.URL;
+import java.util.Currency;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.*;
 
@@ -24,35 +26,9 @@ public class Service {
 	private Map<String, String> cur = new HashMap<String, String>();
 
 	Service(String country) {
-		cur.put("Canada", "CAD");
-		cur.put("Switzerland", "CHF");
-		cur.put("Cyprus", "CYP");
-		cur.put("Danish", "DKK");
-		cur.put("Estonia", "EEK");
-		cur.put("United Kingdom", "GBP");
-		cur.put("Hong Kong", "HKD");
-		cur.put("Hungary", "HUF");
-		cur.put("Iceland", "ISK");
-		cur.put("Japan", "JPY");
-		cur.put("South Korea", "KRW");
-		cur.put("Lithuania", "LTL");
-		cur.put("Latvia", "LVL");
-		cur.put("Malta", "MTL");
-		cur.put("Norway", "NOK");
-		cur.put("New Zeland", "NZD");
-		cur.put("Poland", "PLN");
-		cur.put("Romania", "ROL");
-		cur.put("Sweden", "SEK");
-		cur.put("Singapore", "SGD");
-		cur.put("Slovenia", "SIT");
-		cur.put("Slovakia", "SKK");
-		cur.put("Turkey", "TRL");
-		cur.put("United States", "USD");
-		cur.put("South Africa", "ZAR");
-
 		setCurrentCountry(country);
 
-		shortCur = cur.get(currentCountry);
+		shortCur = convertCountryNameToIsoCode(country);
 	}
 
 	String getWeather(String city) {
@@ -83,7 +59,6 @@ public class Service {
 
 				try {
 					answer = Double.parseDouble(temp);
-					//System.out.println(answer);
 				} catch (Exception e) {
 					System.out.println("Wrong currency type");
 				}
@@ -194,5 +169,16 @@ public class Service {
 	public void setCurrentCountry(String currentCountry) {
 		this.currentCountry = currentCountry;
 		shortCur = cur.get(currentCountry);
+	}
+	
+	public String convertCountryNameToIsoCode(String countryName)
+	{
+	    for(Locale l : Locale.getAvailableLocales()) {
+	        if (l.getDisplayCountry().equals(countryName)) {
+	    		Currency currency = Currency.getInstance(l);
+	    		return currency.getCurrencyCode();
+	        }
+	    }
+	    return null;
 	}
 }
