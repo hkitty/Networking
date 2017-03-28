@@ -15,7 +15,7 @@ public class Main {
 		System.out.println("Rate for " + rateFor + ": " + rate1);
 		System.out.println("NBP rate: " + rate2);
 		
-		MainForm form = new MainForm(country, city, rateFor);
+		new MainForm(country, city, rateFor);
 		
 	}
 }

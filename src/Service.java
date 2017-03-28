@@ -3,9 +3,7 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.URL;
 import java.util.Currency;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.regex.*;
 
 import javax.xml.parsers.DocumentBuilder;

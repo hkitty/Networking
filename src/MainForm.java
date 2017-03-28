@@ -13,6 +13,12 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.ParseException;
+
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ActionListener;
@@ -60,7 +66,9 @@ public class MainForm {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				weatherField.setText(service.getWeather(city));
+				
+				
+				setWeather();
 				textField1.setText(service.getRateFor(rateFor).toString());
 				textField2.setText(service.getNBPRate().toString());
 
@@ -215,5 +223,25 @@ public class MainForm {
 
 	private void changeCity() {
 		weatherField.setText(service.getWeather(textField.getText()));
+	}
+	
+	private void setWeather()
+	{
+		String weather = "";
+		
+		try {
+			JSONObject weatherJsonObject = (JSONObject) JSONValue.parseWithException(service.getWeather(city));
+			
+		    JSONArray weatherArray = (JSONArray) weatherJsonObject.get("weather");
+		    JSONObject weatherData = (JSONObject) weatherArray.get(0);
+		    
+		    JSONObject tempData = (JSONObject) weatherJsonObject.get("main");
+		    
+		    weather = (String) weatherData.get("main") + ", " + weatherData.get("description") + ", Temperature: " + tempData.get("temp");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		weatherField.setText(weather);
 	}
 }
